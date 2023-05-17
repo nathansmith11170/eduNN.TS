@@ -89,7 +89,7 @@ console.log('---------------------------')
 console.log('Use redneck derivative?')
 w1 = 6.14159
 let next_best_guess = w1 - derivativeCost(w1, training_set_linear_through_origin)
-console.log(`First guess: ${w1} Next guess: ${next_best_guess}`)
+console.log(`First guess cost: ${cost(w1, training_set_linear_through_origin)} Next guess cost: ${cost(next_best_guess, training_set_linear_through_origin)}}`)
 console.log('---------------------------')
 
 // Well, we wanted 3 and started with 6.14159, but the next guess is -172!!
@@ -99,7 +99,7 @@ console.log('---------------------------')
 console.log('Use a tiny redneck derivative?')
 w1 = 6.14159
 next_best_guess = w1 - derivativeCost(w1, training_set_linear_through_origin) * 0.001
-console.log(`First guess: ${w1} Next guess: ${next_best_guess}`)
+console.log(`First guess cost: ${cost(w1, training_set_linear_through_origin)} Next guess cost: ${cost(next_best_guess, training_set_linear_through_origin)}}`)
 console.log('---------------------------')
 
 // now we're taking a small step towards the correct answer! This is great. let's do that some more
@@ -112,9 +112,10 @@ let epochs = 10
 let i;
 for (i = 0; i < epochs; i++) {
   next_best_guess = w1 - derivativeCost(w1, training_set_linear_through_origin) * learning_rate
-  console.log(`Old guess: ${w1} New guess: ${next_best_guess}`)
+  console.log(`First guess cost: ${cost(w1, training_set_linear_through_origin)} Next guess cost: ${cost(next_best_guess, training_set_linear_through_origin)}}`)
   w1 = next_best_guess
 }
+console.log(`w1 = ${w1}`)
 console.log('---------------------------')
 
 // As you can see, our model is now pretty close to y = 3x!
@@ -129,9 +130,10 @@ console.log('How about new training data - do we still converge on 3?')
 w1 = 6.14159
 for (i = 0; i < epochs; i++) {
   next_best_guess = w1 - derivativeCost(w1, training_set_linear) * learning_rate
-  console.log(`Old guess: ${w1} New guess: ${next_best_guess}`)
+  console.log(`First guess cost: ${cost(w1, training_set_linear_through_origin)} Next guess cost: ${cost(next_best_guess, training_set_linear_through_origin)}}`)
   w1 = next_best_guess
 }
+console.log(`w1 = ${w1}`)
 console.log('---------------------------')
 
 // what happened??! now it's all wrong
@@ -158,9 +160,10 @@ for (i = 0; i < epochs; i++) {
   let deltaw0 = (betterCost([weights[0] + h, weights[1]], training_set_linear) - betterCost(weights, training_set_linear)) / h * learning_rate
   let deltaw1 = (betterCost([weights[0], weights[1] + h], training_set_linear) - betterCost(weights, training_set_linear)) / h * learning_rate
   let next_weights = [ weights[0] - deltaw0, weights[1] - deltaw1 ]
-  console.log(`Old guesses: w0:${weights[0]},w1:${weights[1]} New guess: w0:${next_weights[0]},w1:${next_weights[1]}`)
+  console.log(`First guess cost: ${betterCost(weights, training_set_linear)} Next guess cost: ${betterCost(next_weights, training_set_linear)}}`)
   weights = next_weights
 }
+console.log(...weights)
 console.log('---------------------------')
 
 // It converges, but w1 isn't 3?
@@ -174,9 +177,10 @@ for (i = 0; i < epochs; i++) {
   let deltaw0 = (betterCost([weights[0] + h, weights[1]], training_set_linear) - betterCost(weights, training_set_linear)) / h * learning_rate
   let deltaw1 = (betterCost([weights[0], weights[1] + h], training_set_linear) - betterCost(weights, training_set_linear)) / h * learning_rate
   let next_weights = [ weights[0] - deltaw0, weights[1] - deltaw1 ]
-  if (i % 10 === 0) console.log(`Old guesses: w0:${weights[0]},w1:${weights[1]} New guess: w0:${next_weights[0]},w1:${next_weights[1]}`)
+  console.log(`First guess cost: ${betterCost(weights, training_set_linear)} Next guess cost: ${betterCost(next_weights, training_set_linear)}}`)
   weights = next_weights
 }
+console.log(...weights)
 console.log('---------------------------')
 
 // We fit the new equation with our model!
