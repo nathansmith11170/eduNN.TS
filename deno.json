@@ -21,7 +21,8 @@
     "include": ["src/"]
   },
   "tasks": {
-    "linear": "deno run src/menu.ts",
-    "debug": "deno run --inspect-brk src/menu.ts"
+    "linear": "deno run src/linear_model.ts",
+    "and": "deno run src/and.ts",
+    "or": "deno run src/or.ts"
   }
 }
